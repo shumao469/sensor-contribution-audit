@@ -1,0 +1,5 @@
+RUNTIME_TESTED.json -text
+SHA256SUMS -text
+TEST_RESULTS.txt -text
+VALIDATION_REPORT.json -text
+src/sensor_contribution_audit/data/figure1a_reference.csv -text
