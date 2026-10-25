@@ -13,12 +13,6 @@ summaries have distinct provenance and licensing scopes.
 
 ## Overview and quick navigation
 
-![Analytical timing budget](examples/generated/timing_budget_300dpi.png)
-
-*Equation-derived illustration: coherent-amplitude retention under Gaussian relative timing error. This is an analytical example, not participant data or an empirical classification result.*
-
-[Editable SVG](examples/generated/timing_budget.svg) · [Vector PDF](examples/generated/timing_budget.pdf) · [Example summary](examples/generated/analytical_summary.json)
-
 | Capability | Implementation | What it produces |
 |---|---|---|
 | Timing-error retention | timing.py | Closed-form retained coherent amplitude and expected complex phasor |
