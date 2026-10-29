@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-29",
+  "base_commit": "3663fcb3b54adcfc37b3b9d4960f18f617026707",
+  "scope": "v18 analytical derivations and explanatory documentation; existing implementation and source summaries unchanged",
+  "status": "PASS",
+  "runtime": {
+    "implementation": "cpython",
+    "python_version": "3.12.14",
+    "optional_packages": {
+      "reportlab": "4.4.9",
+      "pypdfium2": "5.14.0",
+      "pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    }
+  },
+  "unit_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "run": 38,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "new_deterministic_derivation_contracts": 9
+  },
+  "analytical_validation": {
+    "command": "python run_audit.py validate",
+    "reference_cells": 840,
+    "absolute_tolerance": 1e-14,
+    "maximum_absolute_difference": 0,
+    "reference_grid_pass": true,
+    "budget_substitution_pass": true
+  },
+  "preservation": {
+    "tracked_base_files_except_readme_checked": 40,
+    "all_git_blobs_identical": true,
+    "comparison_note": "Git-normalized content checked against base blobs; Windows checkout line-ending conversion is accounted for",
+    "implementation_changed": false,
+    "reference_data_changed": false,
+    "reported_article_values_changed": false,
+    "bundled_figures_changed": false,
+    "historical_release_and_migration_reports_changed": false
+  },
+  "review": {
+    "mathematical_review": "Primary and independent read-only audit completed; clock identifiability, relative covariance, characteristic function, finite-N moments and model linearity checked",
+    "latex_compile_performed": false,
+    "latex_compile_note": "No LaTeX compiler available in the checked runtime; editable source only, no PDF supplied"
+  },
+  "updated_payload_sha256": [
+    {
+      "path": "README.md",
+      "bytes": 16130,
+      "sha256": "fa0112c829f1396c4ba6d0cbce98f537f4ed9fc9a45e785e7cc25cfcf40b5e0a"
+    },
+    {
+      "path": "docs/derivations.md",
+      "bytes": 13739,
+      "sha256": "6f904a7c02a916ce21f03a155e041c0d44583b78cc6062491f046af28f016735"
+    },
+    {
+      "path": "docs/derivations.tex",
+      "bytes": 6858,
+      "sha256": "0d24d441a4707edc91e01b8ef2893c48c94973980f9cc3c89ed019bf0e72f8d2"
+    },
+    {
+      "path": "tests/test_derivation_contracts.py",
+      "bytes": 5345,
+      "sha256": "567e760147328051b90929a02da907a0950dc7926b805fab083b66e0bc2cc7c7"
+    }
+  ],
+  "manifest_scope": "Hashes cover the four documentation/test payloads, excluding this generated verification record itself. Historical SHA256SUMS retains its original scope."
+}

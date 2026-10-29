@@ -115,6 +115,20 @@ This repository was extracted from the sensor-contribution-audit directory of sh
 
 The source package reserves code rights pending a licence decision. That policy is preserved; creating this standalone repository does not assign a new code licence. Article-value attribution and CC BY scopes remain separate as described below and in LICENSE_PENDING.md.
 
+## Technical derivations and manuscript correspondence
+
+The [complete derivations and symbol definitions](docs/derivations.md) accompany
+the v18 manuscript revision. They cover clock registration, Gaussian relative
+timing jitter, finite-sample coherent averages, affine feature expansion,
+bilinear interactions and nonlinear fusion. A [standalone LaTeX source](docs/derivations.tex)
+retains the equations in an editable form. The explanations also distinguish
+training objectives from the audit, correction and prediction roles of an input.
+
+The [verification record](docs/verification_2026-10-29.json) documents the
+documentation-update checks. Existing source-package and migration reports
+remain historical records; this update leaves analytical implementation,
+reference data, reported article values and bundled figures unchanged.
+
 ## What the calculation establishes
 
 For a unit complex sinusoid of frequency `f` and a relative timing shift

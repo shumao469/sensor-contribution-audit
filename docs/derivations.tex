@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[hidelinks]{hyperref}
+\title{Technical relations for establishing sensor contributions in multimodal AI}
+\author{}
+\date{29 October 2026}
+\begin{document}
+\maketitle
+\noindent Editable equation companion to the v18 manuscript revision. The
+repository file \texttt{docs/derivations.md} supplies the expanded explanations,
+implementation mapping and evidence boundaries. These relations are analytical;
+they are separate from attributed article values and participant-level evidence.
+
+\section{Clock registration and sensor responses}
+\[
+t_{\mathrm{ref}}=a\,t_{\mathrm{device}}+b,\qquad
+\min_{a,b}\sum_j\lambda_j[v_j-(a u_j+b)]^2.
+\]
+Times $u_j,v_j$ and $b$ are in seconds, $a$ is dimensionless, and
+$\lambda_j\geq0$ is an event weight. This least-squares fit treats device event
+times as sufficiently precise explanatory coordinates; appreciable errors in
+both coordinates call for an errors-in-variables model. Identifying a rate and
+offset requires at least two distinct event times with positive weights. Retained physical
+events assess residual registration error after fitting. The response operators
+labelled $H_x,H_z$ in the figure describe sensor physics, separately from the
+timing-retention scalar $H$ below. The EEG--fNIRS conceptual relations are
+\[
+e(t)=L j(t)+\varepsilon_e(t),\qquad
+c(t)=K[h*n](t)+u_s(t)+\varepsilon_c(t).
+\]
+Here $e$ is scalp voltage, $j$ source currents, $L$ the electrical lead field,
+and $\varepsilon_e$ residual contributions. The approximate optical relation
+uses relative haemoglobin estimates $c$, conceptual neural drive $n$,
+haemodynamic kernel $h$, convolution $*$, effective sensitivity $K$,
+superficial/systemic contributions $u_s$, and residual $\varepsilon_c$.
+Units follow the declared measurement conversion and scaling. Clock correction
+preserves the physiological response delay. These forward models are explanatory,
+rather than implemented fitting procedures in the package.
+
+\section{Relative timing error}
+For residual errors expressed on a common timebase,
+\[
+\varepsilon_\Delta=\varepsilon_z-\varepsilon_x,\qquad
+\sigma_\Delta^2=\sigma_z^2+\sigma_x^2
+-2\operatorname{Cov}(\varepsilon_x,\varepsilon_z).
+\]
+Equal independent device standard deviations $s$ give
+$\sigma_\Delta=\sqrt{2}s$. Identical common-mode errors cancel.
+
+\section{Gaussian characteristic-function derivation}
+Let $f$ be in hertz, and let the relative shift, in seconds, be independent of
+the underlying feature:
+\[
+\varepsilon_\Delta\sim\mathcal N(\mu_\Delta,\sigma_\Delta^2),\qquad
+Z=e^{i2\pi f\varepsilon_\Delta}.
+\]
+For a standard normal variable $U$, define
+\[
+F(v)=\mathbb E[e^{ivU}]
+=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}e^{ivu}e^{-u^2/2}\,du.
+\]
+Integration by parts gives $F'(v)=-vF(v)$ and $F(0)=1$, hence
+$F(v)=e^{-v^2/2}$. Therefore
+\[
+\mathbb E[Z]=e^{i2\pi f\mu_\Delta}
+e^{-(2\pi f\sigma_\Delta)^2/2},\qquad
+H(f,\sigma_\Delta)=|\mathbb E[Z]|
+=e^{-(2\pi f\sigma_\Delta)^2/2}.
+\]
+$i$ is the imaginary unit; $\mu_\Delta$ is the mean relative shift. The mean
+rotates phase, while variation reduces ensemble coherent amplitude. The
+illustration uses $\mu_\Delta=0$. The distinct endpoints are
+\[
+|\mathbb E Z|=H,\qquad |\mathbb E Z|^2=H^2,\qquad
+\mathbb E|Z|^2=1.
+\]
+The public helpers accept milliseconds and divide by 1000 explicitly.
+
+\section{Finite-sample averages}
+For $N$ independent, identically distributed unit phasors of any marginal
+distribution, write $H=|\mathbb E Z|$. Then
+\[
+\bar Z_N=N^{-1}\sum_{j=1}^N Z_j,\qquad
+\mathbb E|\bar Z_N|^2
+=\frac{N+N(N-1)H^2}{N^2}
+=H^2+\frac{1-H^2}{N}.
+\]
+The diagonal terms equal one; independence factorises each off-diagonal term
+into $H^2$. This second moment differs from the squared ensemble mean and
+from the mean sample magnitude. Correlated shifts instead require
+\[
+\mathbb E|\bar Z_N|^2
+=N^{-2}\sum_{j,k}\mathbb E\!\left[
+e^{i2\pi f(\varepsilon_{\Delta,j}-\varepsilon_{\Delta,k})}\right].
+\]
+Gaussian marginal distributions determine $H$; sampling dependence determines
+convergence and uncertainty of empirical averages.
+
+\section{A chosen timing budget}
+For $f>0$ and $0<\eta\leq1$, solving $H\geq\eta$ gives
+\[
+\sigma_\Delta\leq\frac{\sqrt{-2\ln\eta}}{2\pi f}.
+\]
+At the illustrative amplitude-retention criterion $\eta=0.9$, this is
+3.65295294 ms at 20 Hz and 1.82647647 ms at 40 Hz. The corresponding coherent
+power fraction is $0.9^2=0.81$. A 90\% coherent-power requirement uses
+$H\geq\sqrt{0.9}$. These are chosen analytical criteria, rather than universal
+instrument thresholds. Carrier phase, envelopes, finite-window features,
+haemodynamic dynamics and task performance require their own evaluations.
+
+\section{Affine expansion in fixed features}
+\[
+x\in\mathbb R^{d_x},\quad z\in\mathbb R^{d_z},\quad
+s=w_x^\top x+w_z^\top z+b
+=[w_x;w_z]^\top[x;z]+b.
+\]
+For one unconstrained scalar output with fixed features, the total count is
+$d_x+d_z+1$, compared with $d_x+1$ for the existing-input score. The added block
+introduces $d_z$ coefficients. Joint fitting can also change $w_x$ and $b$.
+An affine score followed by a logistic link
+$p=(1+e^{-s})^{-1}$ yields a probability nonlinear in the declared features.
+Dimension bookkeeping alone establishes neither target information nor benefit.
+
+\section{Interactions, encoders and fusion}
+\[
+r(x,z)=x^\top A z,\quad A\in\mathbb R^{d_x\times d_z},\qquad
+r(c x,c z)=c^2r(x,z).
+\]
+The interaction is linear in either input with the other held fixed, generally
+nonlinear in $[x;z]$, and linear in the $d_xd_z$ entries of $A$ after declaring
+product features. An unconstrained bilinear block plus the affine $z$ block
+adds $d_xd_z+d_z$ coefficients. Architectural constraints change that count.
+More generally,
+\[
+h_x=E_{\phi_x}(x),\quad h_z=E_{\phi_z}(z),\quad
+s=g_\theta(h_x,h_z,q,m).
+\]
+$\phi_x,\phi_z$ are encoder parameter blocks; $h_x,h_z$ have dimensions
+$k_x,k_z$; $\theta$ parameterises fusion; $q$ records measured quality; and $m$
+records stream availability. A declared concatenating readout has input
+dimension $k_x+k_z+\dim(q)+\dim(m)$. Architecture and update schedule determine
+trainable parameter counts. An affine head is affine in its fixed
+representations, while nonlinear encoders make the complete mapping nonlinear.
+
+\section{Interpretation}
+Supervision describes the origin of training targets, and one system can
+combine supervised, self-supervised and other unsupervised stages. The added
+observation's role determines its evidence requirement: an audit distinguishes
+a named explanation, a correction receives interference and target-preservation
+checks, and a prediction input receives a matched comparison at a common
+decision deadline. These analytical identities alone establish neither causal
+identification nor physiological, predictive or clinical benefit.
+\end{document}
