@@ -206,7 +206,7 @@ Its variance follows directly from covariance algebra:
 
 $$
 \sigma_\Delta^2=\sigma_z^2+\sigma_x^2
- -2\operatorname{Cov}(\varepsilon_x,\varepsilon_z).
+ -2\mathrm{Cov}(\varepsilon_x,\varepsilon_z).
 $$
 
 $\sigma_x$ and $\sigma_z$ are the device-specific residual standard deviations;
