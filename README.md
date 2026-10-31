@@ -2,14 +2,7 @@
 
 A small, portable analytical companion to **Establishing sensor contributions
 in multimodal AI**. It reproduces the equation-derived timing-error illustration
-and checks declared model-input dimensions. Separately attributed tables retain
-a small set of reported values from two source articles. It contains no individual
-participant measurements, trained weights, internal clinical predictions or manuscript files.
-
-Repository: [shumao469/sensor-contribution-audit](https://github.com/shumao469/sensor-contribution-audit).
-The corresponding contributor is Shumao Xu. An archival identifier and code
-licence remain pending. The analytical software and the attributed article
-summaries have distinct provenance and licensing scopes.
+and checks declared model-input dimensions. 
 
 ## Overview and quick navigation
 
@@ -39,15 +32,13 @@ python run_audit.py --help
 python run_audit.py validate --out outputs/validation.json
 python run_audit.py generate --out outputs
 ```
-
-Use Python 3.10 or later. The core calculation, SVG writer and command-line runner require only the Python standard library. No GPU, trained model, participant dataset or Jupyter installation is needed.
+Use Python 3.10 or later. The core calculation, SVG writer and command-line runner require only the Python standard library.
 
 ### Optional isolated environment
 
 ```bash
 python -m venv .venv
 ```
-
 Activate with `.\.venv\Scripts\Activate.ps1` in Windows PowerShell, or `source .venv/bin/activate` on Linux/macOS/WSL. Install the optional rendering lock only if PDF/PNG output is needed. Running directly through run_audit.py avoids requiring an editable installation.
 
 ### Typical workflow
@@ -56,7 +47,7 @@ Activate with `.\.venv\Scripts\Activate.ps1` in Windows PowerShell, or `source .
 2. Generate analytical CSV/JSON/SVG outputs into a new output directory.
 3. Optionally render PDF/PNG using --with-plots.
 4. Run dimensions for the explicitly declared feature/latent sizes of interest.
-5. Export reported-values separately; these are literature transcriptions, not outputs of the timing model.
+5. Export reported-values separately; these are literature transcriptions.
 6. Run the tests and retain the command, interpreter version, generated summary and output hashes for provenance.
 
 ### Python API
@@ -71,7 +62,6 @@ print(coherent_amplitude(20, 3.65))   # frequency in Hz; relative jitter SD in m
 print(jitter_budget_ms(20, 0.9))      # approximately 3.65 ms
 print(dimension_audit(12, 8))
 ```
-
 For editable installation, use python -m pip install -e .; its build backend uses the exact versions declared in pyproject.toml. Analytical API units remain explicit regardless of the command used.
 
 ### CLI reference
@@ -115,26 +105,9 @@ MIGRATION.md                  Original repository and pinned source commit
 | Invalid frequency/jitter/dimension | Supply finite values in the documented domain; dimensions are counts |
 | Validation differs for custom CSV | Compare complete grid coordinates, units and values against the specified equation |
 
-### Migration and licensing
-
-This repository was extracted from the sensor-contribution-audit directory of shumao469/stroke at commit 265b024086b9cab207704db233da06ea091427ee. See MIGRATION.md. Earlier validation/runtime reports describe that retained source package; a fresh migration test record is stored separately.
-
-The source package reserves code rights pending a licence decision. That policy is preserved; creating this standalone repository does not assign a new code licence. Article-value attribution and CC BY scopes remain separate as described below and in LICENSE_PENDING.md.
-
 ## Technical derivations and interpretation
-
-All equations, derivations, symbol definitions and assumptions are included
-below on this repository homepage. They accompany the v18 revision of
-*Establishing sensor contributions in multimodal AI*. The results are mathematical
-relations and software checks, separate from the attributed aggregate article
-values elsewhere in this repository.
-
 A [standalone Markdown copy](docs/derivations.md) and an
 [editable LaTeX source](docs/derivations.tex) are retained for separate use.
-The [29 October verification record](docs/verification_2026-10-29.json)
-documents the derivation update at that date; its payload hashes are historical.
-The homepage presentation was expanded on 30 October 2026 without changing
-the equations, implementation, reference data, article values or bundled figures.
 
 ### 1. Clock registration and response models
 
@@ -433,13 +406,6 @@ receives a matched comparison with a comparably developed original-sensor
 system at the same decision deadline. Input masking within a fitted model and
 redevelopment with fewer inputs address different decisions.
 
-The equations above supply neither causal identification nor evidence of
-physiological, clinical or predictive benefit by themselves. The v18 manuscript
-connects these analytical distinctions to attributed studies. This repository
-retains its mathematical calculations, aggregate-source summaries and software
-tests as separate evidence categories. It contains no participant-level
-validation, new model training or unpublished clinical results.
-
 ### 9. Reproduce the implemented relations
 
 From the repository root:
@@ -512,11 +478,8 @@ endpoints remain separate. Numerical transcription tests verify the retained
 values and do not establish physiological, predictive or clinical validity.
 
 Sources: Ortega-Martinez, A. et al., *Neurophotonics* **9**, 025003 (2022),
-[doi:10.1117/1.NPh.9.2.025003](https://doi.org/10.1117/1.NPh.9.2.025003), Table 2
-and sections 3.3-3.4; Shin, J. et al., *Scientific Data* **5**, 180003 (2018),
-[doi:10.1038/sdata.2018.3](https://doi.org/10.1038/sdata.2018.3), Dataset C and
-Fig. 7. Both source articles state CC BY 4.0. These tables are attributed
-transcriptions under that scope, separate from the code's reserved-rights policy.
+[doi:10.1117/1.NPh.9.2.025003](https://doi.org/10.1117/1.NPh.9.2.025003); Shin, J. et al., *Scientific Data* **5**, 180003 (2018),
+[doi:10.1038/sdata.2018.3](https://doi.org/10.1038/sdata.2018.3). Both source articles state CC BY 4.0. 
 
 ## Outputs
 
@@ -581,8 +544,7 @@ bytewise repeatability within the pinned environment. Floating-point round-off,
 font substitution and rendering-engine versions can affect bytes across
 environments; the numerical reference tolerance remains explicit. Tests cover
 the stated analytical identities, units, domain checks, scalar output dimension,
-reference coverage and command-line entry points. They do not test a biological
-claim or an empirical algorithmic advantage.
+reference coverage and command-line entry points. 
 
 The author can select a code licence and add a DOI after an archival service
 assigns one. `CITATION.cff` identifies the confirmed contributor and repository;
