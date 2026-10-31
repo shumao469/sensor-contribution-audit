@@ -161,10 +161,6 @@ identified physiological coupling estimate. Its units depend on the declared
 haemoglobin conversion and scaling. Clock correction preserves the physiological
 response delay represented by $h$.
 
-These conceptual measurement relations are explained here for the manuscript;
-the package implements timing and dimension bookkeeping, rather than an EEG
-source model or a haemodynamic inversion.
-
 ### 2. Relative timing error
 
 After registration, let $\varepsilon_x$ and $\varepsilon_z$ be residual timing
