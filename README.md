@@ -145,7 +145,7 @@ e(t)=L j(t)+\varepsilon_e(t),
 $$
 
 $$
-c(t)=K[h*n](t)+u_s(t)+\varepsilon_c(t).
+c(t)=K\left[(h\ast n)(t)\right]+u_s(t)+\varepsilon_c(t).
 $$
 
 $e(t)$ is scalp voltage; $j(t)$ is a vector of source currents; and $L$ is the
