@@ -522,14 +522,6 @@ encoder and fusion parameter counts remain explicit declarations.
 * The jitter is **relative**. The [covariance derivation](#2-relative-timing-error)
   above specifies how the two device errors combine. Treating separate clocks as
   independent is an additional assumption, not an implication of this plot.
-* The calculation concerns a specified frequency component. EEG carrier
-  frequency, feature-envelope dynamics and haemodynamic dynamics are different
-  quantities. It does not estimate HbO, HbR, cerebral oxygen saturation,
-  physiological coupling or clinical benefit.
-* The model neither specifies a sampling rate nor validates a commercial device.
-  A physiological response delay is separate from a clock error.
-* The package performs no patient-level analysis, tuning, training or model
-  selection. Recovery prediction and new fusion validation remain outside scope.
 
 ## Reproducibility and provenance
 
@@ -538,13 +530,6 @@ is a retained analytical reference, not external experimental ground truth.
 Its provenance and SHA-256 are recorded beside it. `validate` checks every
 coordinate and value against the closed form, using absolute tolerance `1e-14`,
 and substitutes the 20/40-Hz budgets back into the retention equation.
-
-The deterministic CSV/JSON/SVG outputs and optional PDF/PNG pair are tested for
-bytewise repeatability within the pinned environment. Floating-point round-off,
-font substitution and rendering-engine versions can affect bytes across
-environments; the numerical reference tolerance remains explicit. Tests cover
-the stated analytical identities, units, domain checks, scalar output dimension,
-reference coverage and command-line entry points. 
 
 The author can select a code licence and add a DOI after an archival service
 assigns one. `CITATION.cff` identifies the confirmed contributor and repository;
