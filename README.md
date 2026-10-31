@@ -527,7 +527,3 @@ Its provenance and SHA-256 are recorded beside it. `validate` checks every
 coordinate and value against the closed form, using absolute tolerance `1e-14`,
 and substitutes the 20/40-Hz budgets back into the retention equation.
 
-The author can select a code licence and add a DOI after an archival service
-assigns one. `CITATION.cff` identifies the confirmed contributor and repository;
-it omits an unassigned DOI. See `LICENSE_PENDING.md` for the scope of the code
-and the separately attributed article values.
